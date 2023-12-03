@@ -44,6 +44,10 @@ export default {
         alert("Please enter your email");
         return;
       }
+      if (this.formData.password.length < 6) {
+        alert("Password must be at least 6 characters");
+        return;
+      }
       console.log("form submitted");
     },
   },
