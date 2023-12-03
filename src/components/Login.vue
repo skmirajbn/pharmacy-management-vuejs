@@ -5,12 +5,12 @@
         <img class="login-card_icon" src="/img/lock.png" alt="" />
         <h2>User Login</h2>
       </div>
-      <form action="#">
+      <form action="#" @submit.prevent="handleSubmit">
         <label class="block">Email</label>
-        <input type="email" placeholder="Enter Your Email" />
+        <input type="email" placeholder="Enter Your Email" v-model="formData.email" />
 
         <label class="block mt-3">Password</label>
-        <input type="password" placeholder="Enter Password" />
+        <input type="password" placeholder="Enter Password" required v-model="formData.password" />
 
         <button type="submit" class="block mt-3 w-100">Login</button>
 
@@ -28,7 +28,26 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data: function () {
+    return {
+      formData: {
+        email: "",
+        password: "",
+      },
+    };
+  },
+  methods: {
+    handleSubmit() {
+      console.log(this.formData);
+      if (!this.formData.email) {
+        alert("Please enter your email");
+        return;
+      }
+      console.log("form submitted");
+    },
+  },
+};
 </script>
 
 <style>
