@@ -7,10 +7,10 @@
       </div>
       <form action="#" @submit.prevent="handleSubmit">
         <label class="block">Email</label>
-        <input type="email" placeholder="Enter Your Email" v-model="formData.email" />
+        <input type="text" placeholder="Enter Your Email" v-model="formData.email" ref="email" />
 
         <label class="block mt-3">Password</label>
-        <input type="password" placeholder="Enter Password" required v-model="formData.password" />
+        <input type="password" placeholder="Enter Password" v-model="formData.password" ref="password" />
 
         <button type="submit" class="block mt-3 w-100">Login</button>
 
@@ -41,11 +41,30 @@ export default {
     handleSubmit() {
       console.log(this.formData);
       if (!this.formData.email) {
-        alert("Please enter your email");
+        this.$eventBus.emit("toast", {
+          type: "Error",
+          message: "Email is required",
+        });
+        this.$refs.email.focus();
         return;
       }
+      // Check if the input is valid email or not
+
+      if (!/\S+@\S+\.\S+/.test(this.formData.email)) {
+        this.$eventBus.emit("toast", {
+          type: "Error",
+          message: "Email is invalid",
+        });
+        this.$refs.email.focus();
+        return;
+      }
+
       if (this.formData.password.length < 6) {
-        alert("Password must be at least 6 characters");
+        this.$eventBus.emit("toast", {
+          type: "Error",
+          message: "Password must be at least 6 characters",
+        });
+        this.$refs.password.focus();
         return;
       }
       console.log("form submitted");
@@ -80,7 +99,7 @@ button {
   padding: 44px 33px;
 }
 
-.login-card input[type="email"],
+.login-card input[type="text"],
 .login-card input[type="password"] {
   width: 100%;
 }

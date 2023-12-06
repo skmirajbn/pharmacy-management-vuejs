@@ -11,21 +11,25 @@ import TheToast from "./components/TheToast.vue";
 export default {
   data: () => {
     return {
-      toasts: [
-        {
-          type: "Success",
-          message: "Done Successfully.",
-        },
-        {
-          type: "Error",
-          message: "Something went wrong.",
-        },
-      ],
+      toasts: [],
     };
   },
   components: {
     Login,
     TheToast,
+  },
+  mounted() {
+    this.$eventBus.on("toast", (data) => {
+      this.toasts.push(data);
+      this.removeOneToast();
+    });
+  },
+  methods: {
+    removeOneToast() {
+      setTimeout(() => {
+        this.toasts.shift();
+      }, 2000);
+    },
   },
 };
 </script>
