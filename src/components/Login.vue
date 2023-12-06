@@ -1,6 +1,9 @@
 <template>
   <div class="login-page">
     <div class="login-card">
+      <div class="box" :class="{ 'box--right': movedToRight }"></div>
+      <button @click="movedToRight = false">Move to Left</button>
+      <button @click="movedToRight = true" class="ml-4">Move to Right</button>
       <div class="text-center">
         <img class="login-card_icon" src="/img/lock.png" alt="" />
         <h2>User Login</h2>
@@ -35,6 +38,7 @@ export default {
         email: "",
         password: "",
       },
+      movedToRight: false,
     };
   },
   methods: {
@@ -74,6 +78,16 @@ export default {
 </script>
 
 <style>
+.box {
+  width: 55px;
+  height: 55px;
+  background-color: greenyellow;
+  margin-bottom: 22px;
+  transition: margin-left 0.25s ease;
+}
+.box--right {
+  margin-left: 222px;
+}
 button {
   padding: 10px 0;
   color: white;
