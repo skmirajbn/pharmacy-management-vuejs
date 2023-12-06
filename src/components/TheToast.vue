@@ -1,5 +1,5 @@
 <template>
-  <div class="toast">
+  <div :class="['toast', 'toast__' + toastType]">
     <div class="toast__header">
       <span>{{ toastType }}</span>
       <span>x</span>
